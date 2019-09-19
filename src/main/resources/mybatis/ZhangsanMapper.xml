@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.ZhangsanMapper">
+    <resultMap id="LiBaseResultMap" type="com.example.demo.model.People">
+        <result column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="extend_info" property="extendInfo" jdbcType="VARCHAR"
+                javaType="com.example.demo.model.Li"
+                typeHandler="com.example.demo.util.JsonTypeHandler"/>
+    </resultMap>
+
+    <resultMap id="ZhangBaseResultMap" type="com.example.demo.model.People">
+        <result column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="extend_info" property="extendInfo" jdbcType="VARCHAR"
+                javaType="com.example.demo.model.Zhang"
+                typeHandler="com.example.demo.util.JsonTypeHandler"/>
+    </resultMap>
+
+    <resultMap id="PersonBaseResultMap" type="com.example.demo.model.People">
+        <result column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="extend_info" property="extendInfo" jdbcType="VARCHAR"
+                javaType="com.example.demo.model.Person"
+                typeHandler="com.example.demo.util.JsonTypeHandler"/>
+    </resultMap>
+
+    <select id="selectAll" resultMap="PersonBaseResultMap">
+        select id,name,extend_info from people
+    </select>
+
+    <select id="selectZhang" resultMap="ZhangBaseResultMap">
+        select id,name,extend_info from people where id = #{id,jdbcType=VARCHAR}
+    </select>
+
+    <select id="selectLi" resultMap="LiBaseResultMap">
+        select id,name,extend_info from people where id = #{id,jdbcType=VARCHAR}
+    </select>
+
+    <insert id="insert" parameterType="com.example.demo.model.People">
+        insert into people (name,extend_info)
+        values (#{name,jdbcType=VARCHAR},
+        <if test="name == 'zhangsan'">
+            #{extendInfo,javaType=com.example.demo.model.Zhang,jdbcType=VARCHAR,typeHandler=com.example.demo.util.JsonTypeHandler}
+        </if>
+        <if test="name == 'lisi'">
+            #{extendInfo,javaType=com.example.demo.model.Li,jdbcType=VARCHAR,typeHandler=com.example.demo.util.JsonTypeHandler}
+        </if>
+        )
+    </insert>
+
+    <update id="update" parameterType="com.example.demo.model.People">
+    update people set name = #{name,jdbcType=VARCHAR},extend_info = #{extendInfo,javaType=com.example.demo.model.Zhangsan,jdbcType=VARCHAR,typeHandler=com.example.demo.util.JsonTypeHandler}
+    where id = #{id,jdbcType=VARCHAR}
+    </update>
+
+    <delete id="delete">
+    delete from people where id = #{id,jdbcType=VARCHAR}
+  </delete>
+</mapper>

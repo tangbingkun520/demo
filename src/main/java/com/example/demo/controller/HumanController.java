@@ -1,7 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.*;
-import com.example.demo.service.ZhangsanService;
+import com.example.demo.service.HumanService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,28 +20,28 @@ import java.util.List;
  **/
 
 @Controller
-public class ZhangsanController {
+public class HumanController {
 
     @Autowired
-    ZhangsanService zhansanService;
+    HumanService humanService;
 
     @RequestMapping(value = "list",method = RequestMethod.GET)
     @ResponseBody
     public List<Person> list(){
-        return zhansanService.list();
+        return humanService.list();
     }
 
     @RequestMapping(value = "view",method = RequestMethod.GET)
     @ResponseBody
     public String view(String id,String name){
-        Object result = zhansanService.view(id,name);
+        Object result = humanService.view(id,name);
         return result.toString();
     }
 
     @RequestMapping(value = "add",method = RequestMethod.POST)
     @ResponseBody
     public String add(@RequestBody Human human){
-        zhansanService.add(human);
+        humanService.add(human);
         return "success";
     }
 

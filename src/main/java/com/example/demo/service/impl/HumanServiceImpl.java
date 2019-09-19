@@ -1,8 +1,8 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.mapper.ZhangsanMapper;
+import com.example.demo.mapper.HumanMapper;
 import com.example.demo.model.*;
-import com.example.demo.service.ZhangsanService;
+import com.example.demo.service.HumanService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,10 +19,10 @@ import java.util.List;
  **/
 
 @Service
-public class ZhangsanServiceImpl implements ZhangsanService {
+public class HumanServiceImpl implements HumanService {
 
     @Autowired
-    ZhangsanMapper zhangsanMapper;
+    HumanMapper humanMapper;
 
     @Override
     public void add(Human human) {
@@ -34,7 +34,7 @@ public class ZhangsanServiceImpl implements ZhangsanService {
                 BeanUtils.copyProperties(human,people);
                 BeanUtils.copyProperties(human,zhang);
                 people.setExtendInfo(zhang);
-                zhangsanMapper.insert(people);
+                humanMapper.insert(people);
                 break;
             case "lisi":
                 People<Li> people1 = new People<>();
@@ -42,7 +42,7 @@ public class ZhangsanServiceImpl implements ZhangsanService {
                 BeanUtils.copyProperties(human,people1);
                 BeanUtils.copyProperties(human,li);
                 people1.setExtendInfo(li);
-                zhangsanMapper.insert(people1);
+                humanMapper.insert(people1);
                 break;
             default:
         }
@@ -60,7 +60,7 @@ public class ZhangsanServiceImpl implements ZhangsanService {
 
     @Override
     public List<Person> list() {
-        return zhangsanMapper.selectAll();
+        return humanMapper.selectAll();
     }
 
     @Override
@@ -70,14 +70,14 @@ public class ZhangsanServiceImpl implements ZhangsanService {
         Object obj = new Object();
         switch (name) {
             case "lisi":
-                people = zhangsanMapper.selectLi(id);
+                people = humanMapper.selectLi(id);
                 Lisi lisi = new Lisi();
                 BeanUtils.copyProperties(people,lisi);
                 BeanUtils.copyProperties(people.getExtendInfo(),lisi);
                 obj = lisi;
                 break;
             case "zhangsan":
-                people = zhangsanMapper.selectZhang(id);
+                people = humanMapper.selectZhang(id);
                 Zhangsan zhangsan = new Zhangsan();
                 BeanUtils.copyProperties(people,zhangsan);
                 BeanUtils.copyProperties(people.getExtendInfo(),zhangsan);

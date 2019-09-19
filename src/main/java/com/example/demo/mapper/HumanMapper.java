@@ -16,7 +16,7 @@ import java.util.List;
  **/
 
 @Mapper
-public interface ZhangsanMapper {
+public interface HumanMapper {
 
     List<Person> selectAll();
 

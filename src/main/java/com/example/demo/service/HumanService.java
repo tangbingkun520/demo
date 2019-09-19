@@ -8,13 +8,13 @@ import com.example.demo.model.Person;
 import java.util.List;
 
 /**
- * @ClassName ZhangsanService
+ * @ClassName HumanService
  * @Description 说明：
  * @Author DynTang
  * @Date 2019-09-18
  * @Version V1.0
  **/
-public interface ZhangsanService {
+public interface HumanService {
 
     void add(Human human);
 
